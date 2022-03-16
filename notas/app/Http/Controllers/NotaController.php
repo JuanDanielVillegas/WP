@@ -72,6 +72,7 @@ class NotaController extends Controller
         //$nota = Nota::findOrFail($id);
         $nota = Nota::where('id', $id)->where('users_id', Auth::id())->first();
 
+
         return Inertia::render('Notas/Show', [
             'nota' => $nota
         ]);
@@ -85,7 +86,8 @@ class NotaController extends Controller
      */
     public function edit($id)
     {
-        $nota = Nota::findOrFail($id);
+        //$nota = Nota::findOrFail($id);
+        $nota = Nota::where('id', $id)->where('users_id', Auth::id())->first();
 
         return Inertia::render('Notas/Edit', [
             'nota' => $nota
@@ -106,7 +108,9 @@ class NotaController extends Controller
             'contenido' => 'required'
         ]);
 
-        $nota = Nota::findOrFail($id);
+        $nota = Nota::where('id', $id)->where('users_id', Auth::id())->first();
+
+        //$nota = Nota::findOrFail($id);
         $nota->update($request->all());
 
         return redirect()->route('noticias.index')->with('status','Información actualizada');
@@ -120,7 +124,9 @@ class NotaController extends Controller
      */
     public function destroy($id)
     {
-        $nota = Nota::findOrFail($id);
+        //$nota = Nota::findOrFail($id);
+        $nota = Nota::where('id', $id)->where('users_id', Auth::id())->first();
+
         $nota->delete();
         return redirect()->route('noticias.index')->with('status','Información Eliminada');
     }
